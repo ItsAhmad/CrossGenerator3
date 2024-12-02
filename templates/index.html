@@ -4,18 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cross Generator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Cross Generator</h1>
     <form id="partNumberForm">
         <label for="model">Model:</label>
         <input type="text" id="model" name="model" required><br>
+
         <label for="mounting">Mounting:</label>
-        <input type="text" id="mounting" name="mounting"><br>
+        <input type="text" id="mounting" name="mounting" required><br>
+
         <label for="diffuser">Diffuser:</label>
-        <input type="text" id="diffuser" name="diffuser"><br>
-        <!-- Add more fields as needed -->
+        <input type="text" id="diffuser" name="diffuser" required><br>
+
+        <label for="lamp" id="lamp" name="lamp"></label>
+        <input type="text" id="lamp" name="lamp" required><br>
+        
+        <label for="driver" id="driver" name="driver"></label>
+        <input type="text" id="driver" name="driver" required><br>
+
+        <label for="voltage" id="voltage" name="voltage"></label>
+        <input type="text" id="voltage" name="voltage" required><br>
+
+        <label for="doorframe" id="doorframe" name="doorframe"></label>
+        <input type="text" id="doorframe" name="doorframe" required><br>
+
+        <label for="options" id="options" name="options"></label>
+        <input type="text" id="options" name="options"><br>
+
+        <label for="accessories" id="accessories" name="accessories"></label>
+        <input type="text" id="accessories" name="accessories"><br>
+
         <button type="submit">Get Equivalent</button>
     </form>
     <h2>Amico Equivalent Part Numbers:</h2>
