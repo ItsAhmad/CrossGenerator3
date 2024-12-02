@@ -95,8 +95,7 @@ class Amico(db.Model):
     kenall_doorframe = db.relationship('KenallDoorframe', backref='amico', lazy=True)
     kenall_options = db.relationship('KenallOptions', backref='amico', lazy=True)
     kenall_accessories = db.relationship('KenallAccessories', backref='amico', lazy=True)
-
-''' API route example for fetching Amico part details - commenting out for now 
+ 
 @app.route('/api/get-amico-part/<int:amico_id>', methods=['GET'])
 def get_amico_part(amico_id):
     amico = Amico.query.get(amico_id)
@@ -116,7 +115,7 @@ def get_amico_part(amico_id):
         "kenall_options":[options.options for options in amico.kenall_cris],
         "kenall_accessories":[accessories.accessories for accessories in amico.kenall_cris],
     })
-'''
+
 
 if __name__ == '__main__':
     app.run(debug=True)
