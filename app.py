@@ -96,7 +96,7 @@ class Amico(db.Model):
     kenall_options = db.relationship('KenallOptions', backref='amico', lazy=True)
     kenall_accessories = db.relationship('KenallAccessories', backref='amico', lazy=True)
  
-@app.route('/api/get-amico-part/<int:amico_id>', methods=['GET'])
+@app.route('/api/get-amico-part/<int:amico_id>', methods=['POST'])
 def get_amico_part(amico_id):
     amico = Amico.query.get(amico_id)
     if not amico:
