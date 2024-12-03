@@ -10,8 +10,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "postgresql://
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app, db, compare_type=True)
 
+'''
 # Tables: Kenall Model & Amico Model
 class KenallModel(db.Model):
     __tablename__ = 'kenall_model'
@@ -138,6 +139,7 @@ class AmicoAccessories(db.Model):
     __tablename__ = 'amico_accessories'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     options = db.Column(db.String, nullable=False, unique=True)
+'''
 
 
 @app.route('/api/get-amico-part', methods=['GET'])
