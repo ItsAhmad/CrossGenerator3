@@ -12,127 +12,130 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-# Table: KenallModel
+# Tables: Kenall Model & Amico Model
 class KenallModel(db.Model):
     __tablename__ = 'kenall_model'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     model = db.Column(db.String, nullable=False)
-    amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+    amico_id = db.Column(db.Integer, db.ForeignKey('amico_model.id'), nullable=False)
+# Relationship 
+    amico_model = db.relationship('AmicoModel', backref='kenall_model')
+class AmicoModel(db.Model):
+    __tablename__ = 'amico_model'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    model = db.Column(db.String, nullable=False, unique=True) 
 
-# Table: KenallMounting
+
+
+# Tables: Kenall Mounting & Amico Mounting
 class KenallMounting(db.Model):
     __tablename__ = 'kenall_mounting'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     mounting = db.Column(db.String, nullable=False)
-    amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+    amico_id = db.Column(db.Integer, db.ForeignKey('amico_mounting.id'), nullable=False)
+# Relationship
+    amico_mounting = db.relationship('AmicoMounting', backref='kenall_mounting')
+class AmicoMounting(db.Model):
+    __tablename__ = 'amico_mounting'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    mounting = db.Column(db.String, nullable=False, unique=True)
 
-# Table: KenallDiffuser
+
+
+# Tables: Kenall Diffuser & Amico Diffuser
 class KenallDiffuser(db.Model):
     __tablename__ = 'kenall_diffuser'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     diffuser = db.Column(db.String, nullable=False)
     amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+# Relationship
+    amico_diffuser = db.relationship('AmicoDiffuser', backref='kenall_diffuser')
+class AmicoDiffuser(db.Model): 
+    __tablename__ = 'amico_diffuser'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    diffuser = db.Column(db.String, nullable=False, unique=True)
 
-# Table: KenallLamp
+
+# Tables: Kenall Lamp & Amico Lamp
 class KenallLamp(db.Model):
     __tablename__ = 'kenall_lamp'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     lamp = db.Column(db.String, nullable=False)
     amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+# Relationship
+    amico_lamp = db.relationship('AmicoLamp', backref='kenall_lamp')
+class AmicoLamp(db.Model):
+    __tablename__ = 'amico_lamp'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    lamp = db.Column(db.String, nullable=False, unique=True) 
 
-# Table: KenallDriver
+
+# Tables: Kenall Driver & Amico Driver
 class KenallDriver(db.Model):
     __tablename__ = 'kenall_driver'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     driver = db.Column(db.String, nullable=False)
     amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+# Relationship
+    amico_driver = db.relationship('AmicoDriver', backref='kenall_driver')
+class AmicoDriver(db.Model):
+    __tablename__ = 'amico_driver'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    driver = db.Column(db.String, nullable=False, unique=True)
 
-# Table: KenallVoltage
+# Tables: Kenall Voltage & Amico Voltage
 class KenallVoltage(db.Model):
     __tablename__ = 'kenall_voltage'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     voltage = db.Column(db.String, nullable=False)
     amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+# Relationship
+    amico_voltage = db.relationship('AmicoVoltage', backref='kenall_voltage')
+class AmicoVoltage(db.Model):
+    __tablename__ = 'amico_voltage'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    voltage = db.Column(db.String, nullable=False, unique=True)
 
-# Table: KenallDoorframe
+# Tables: Kenall Doorframe & Amico Doorframe
 class KenallDoorframe(db.Model):
     __tablename__ = 'kenall_doorframe'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     doorframe = db.Column(db.String, nullable=False)
     amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+# Relationship 
+    amico_doorframe = db.relationship('AmicoDoorframe', backref='kenall_doorframe')
+class AmicoDoorframe(db.Model):
+    __tablename__ = 'amico_doorframe'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    doorframe = db.Column(db.String, nullable=False, unique=True)
 
-
-# Table: KenallOptions
+# Tables: Kenall Options & Amico Options
 class KenallOptions(db.Model):
     __tablename__ = 'kenall_options'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     options = db.Column(db.String, nullable=False)
     amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+# Relationship
+    amico_options = db.relationship('AmicoOptions', backref='kenall_options')
+class AmicoOptions(db.Model):
+    __tablename__ = 'amico_options'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    options = db.Column(db.String, nullable=False, unique=True)
     
 
-# Table: KenallAccessories 
+# Tables: Kenall Accessories & Amico Accessories
 class KenallAccessories(db.Model):
     __tablename__ = 'kenall_accessories'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     accessories = db.Column(db.String, nullable=False)
     amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
-
-
-# Table: AmicoModel
-class AmicoModel(db.Model):
-    __tablename__ = 'amico_model'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    model = db.Column(db.String, nullable=False, unique=True)
-    kenall_models = db.relationship('KenallModel', backref='amico_model', lazy=True)
-
-
-class AmicoMounting(db.Model):
-    __tablename__ = 'amico_mounting'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    mounting = db.Column(db.String, nullable=False, unique=True)
-    kenall_mountings = db.relationship('KenallMounting', backref='amico_mounting', lazy=True)
-
-class AmicoDiffuser(db.Model): 
-    __tablename__ = 'amico_diffuser'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    diffuser = db.Column(db.String, nullable=False, unique=True)
-    kenall_diffuser = db.relationship('KenallDiffuser', backref='amico_diffuser', lazy=True)
-
-class AmicoLamp(db.Model):
-    __tablename__ = 'amico_lamp'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    lamp = db.Column(db.String, nullable=False, unique=True)
-    kenall_lamp = db.relationship('KenallLamp', backref='amico_lamp', lazy=True)
-
-class AmicoDriver(db.Model):
-    __tablename__ = 'amico_driver'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    driver = db.Column(db.String, nullable=False, unique=True)
-    kenall_driver = db.relationship('KenallDriver', backref='amico_driver', lazy=True)
-
- class AmicoVoltage(db.Model):
-    __tablename__ = 'amico_voltage'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    voltage = db.Column(db.String, nullable=False, unique=True)
-    kenall_voltage = db.relationship('KenallVoltage', backref='amico_voltage', lazy=True)
-
-class AmicoDoorframe(db.Model):
-    __tablename__ = 'amico_doorframe'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    doorframe = db.Column(db.String, nullable=False, unique=True)
-    kenall_doorframe = db.relationship('KenallDoorframe', backref='amico_doorframe', lazy=True)
-
-class AmicoOptions(db.Model):
-    __tablename__ = 'amico_options'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    options = db.Column(db.String, nullable=False, unique=True)
-    kenall_options = db.relationship('KenallOptions', backref='amico_options', lazy=True)
-
+# Relationship 
+    amico_accessories = db.relationship('AmicoAccessories', backref='kenall_accessories')
 class AmicoAccessories(db.Model):
     __tablename__ = 'amico_accessories'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     options = db.Column(db.String, nullable=False, unique=True)
-    kenall_accessories = db.relationship('KenallAccessories', backref='amico_accessories', lazy=True)
+
 
 @app.route('/api/get-amico-part', methods=['GET'])
 def get_amico_part():
