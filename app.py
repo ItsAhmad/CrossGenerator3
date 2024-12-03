@@ -17,7 +17,7 @@ class KenallModel(db.Model):
     __tablename__ = 'kenall_model'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     model = db.Column(db.String, nullable=False)
-    amico_id = db.Column(db.Integer, db.ForeignKey('amico_model.id'), nullable=False)
+    amico_model_ref = db.Column(db.Integer, db.ForeignKey('amico_model.id'), nullable=False)
 # Relationship 
     amico_model = db.relationship('AmicoModel', backref='kenall_model')
 class AmicoModel(db.Model):
@@ -32,7 +32,7 @@ class KenallMounting(db.Model):
     __tablename__ = 'kenall_mounting'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     mounting = db.Column(db.String, nullable=False)
-    amico_id = db.Column(db.Integer, db.ForeignKey('amico_mounting.id'), nullable=False)
+    amico_mounting_ref = db.Column(db.Integer, db.ForeignKey('amico_mounting.id'), nullable=False)
 # Relationship
     amico_mounting = db.relationship('AmicoMounting', backref='kenall_mounting')
 class AmicoMounting(db.Model):
@@ -47,7 +47,7 @@ class KenallDiffuser(db.Model):
     __tablename__ = 'kenall_diffuser'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     diffuser = db.Column(db.String, nullable=False)
-    amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+    amico_diffuser_ref = db.Column(db.Integer, db.ForeignKey('amico_diffuser.id'), nullable=False)
 # Relationship
     amico_diffuser = db.relationship('AmicoDiffuser', backref='kenall_diffuser')
 class AmicoDiffuser(db.Model): 
@@ -61,7 +61,7 @@ class KenallLamp(db.Model):
     __tablename__ = 'kenall_lamp'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     lamp = db.Column(db.String, nullable=False)
-    amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+    amico_lamp_ref = db.Column(db.Integer, db.ForeignKey('amico_lamp.id'), nullable=False)
 # Relationship
     amico_lamp = db.relationship('AmicoLamp', backref='kenall_lamp')
 class AmicoLamp(db.Model):
@@ -75,7 +75,7 @@ class KenallDriver(db.Model):
     __tablename__ = 'kenall_driver'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     driver = db.Column(db.String, nullable=False)
-    amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+    amico_driver_ref = db.Column(db.Integer, db.ForeignKey('amico_driver.id'), nullable=False)
 # Relationship
     amico_driver = db.relationship('AmicoDriver', backref='kenall_driver')
 class AmicoDriver(db.Model):
@@ -83,12 +83,13 @@ class AmicoDriver(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     driver = db.Column(db.String, nullable=False, unique=True)
 
+
 # Tables: Kenall Voltage & Amico Voltage
 class KenallVoltage(db.Model):
     __tablename__ = 'kenall_voltage'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     voltage = db.Column(db.String, nullable=False)
-    amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+    amico_voltage_ref = db.Column(db.Integer, db.ForeignKey('amico_voltage.id'), nullable=False)
 # Relationship
     amico_voltage = db.relationship('AmicoVoltage', backref='kenall_voltage')
 class AmicoVoltage(db.Model):
@@ -96,12 +97,13 @@ class AmicoVoltage(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     voltage = db.Column(db.String, nullable=False, unique=True)
 
+
 # Tables: Kenall Doorframe & Amico Doorframe
 class KenallDoorframe(db.Model):
     __tablename__ = 'kenall_doorframe'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     doorframe = db.Column(db.String, nullable=False)
-    amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+    amico_doorframe_ref = db.Column(db.Integer, db.ForeignKey('amico_doorframe.id'), nullable=False)
 # Relationship 
     amico_doorframe = db.relationship('AmicoDoorframe', backref='kenall_doorframe')
 class AmicoDoorframe(db.Model):
@@ -109,12 +111,13 @@ class AmicoDoorframe(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     doorframe = db.Column(db.String, nullable=False, unique=True)
 
+
 # Tables: Kenall Options & Amico Options
 class KenallOptions(db.Model):
     __tablename__ = 'kenall_options'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     options = db.Column(db.String, nullable=False)
-    amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+    amico_options_ref = db.Column(db.Integer, db.ForeignKey('amico_options.id'), nullable=False)
 # Relationship
     amico_options = db.relationship('AmicoOptions', backref='kenall_options')
 class AmicoOptions(db.Model):
@@ -128,7 +131,7 @@ class KenallAccessories(db.Model):
     __tablename__ = 'kenall_accessories'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     accessories = db.Column(db.String, nullable=False)
-    amico_id = db.Column(db.Integer, db.ForeignKey('amico.id'), nullable=False)
+    amico_accessories_ref = db.Column(db.Integer, db.ForeignKey('amico_accessories.id'), nullable=False)
 # Relationship 
     amico_accessories = db.relationship('AmicoAccessories', backref='kenall_accessories')
 class AmicoAccessories(db.Model):
