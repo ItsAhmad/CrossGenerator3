@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('searchForm');
+    const form = document.getElementById('partNumberForm');
     const resultsContainer = document.getElementById('results');
 
     form.addEventListener('submit', async (event) => {
