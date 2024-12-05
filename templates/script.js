@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
               return;
           }*/
   
-          const data = JSON.parse(responseText); // Parse JSON only if non-empty
+          /* const data = JSON.parse(responseText); // Parse JSON only if non-empty */
           resultsContainer.innerHTML = ''; // Clear previous results
   
           if (Object.keys(data).length > 0) {
