@@ -64,35 +64,35 @@ document.addEventListener('DOMContentLoaded', () => {
         
 
         try {
-            // Send data to the server
-            const response = await fetch('/api/search-part', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ 
-                  model,
-                  mounting,
-                  diffuser,
-                  lamp,
-                  driver,
-                  voltage,
-                  doorframe,
-                  options,
-                  accessories
-                }),
-            });
+          const response = await fetch('/api/search-part', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(requiredFields),
+          });
 
-            if (!response.ok) {
+          if (!response.ok) {
               // Handle non-200 responses
-              const errorData = await response.json();
-              alert(`Error: ${errorData.error}`);
+              const errorText = await response.text(); // Read error message as text
+              try {
+                  const errorData = JSON.parse(errorText); // Try parsing as JSON
+                  alert(`Error: ${errorData.error}`);
+              } catch {
+                  alert(`Error: ${errorText || 'Unknown error occurred.'}`);
+              }
               return;
           }
-  
-          const data = await response.json(); // Read as plain text first
+
+          const responseText = await response.text(); // Read as plain text first
+          if (!responseText.trim()) {
+              alert('Error: Empty response from the server.');
+              return;
+          }
+
+          const data = JSON.parse(responseText); // Parse JSON after checking for content
           resultsContainer.innerHTML = ''; // Clear previous results
-  
+
           if (Object.keys(data).length > 0) {
               for (const [key, value] of Object.entries(data)) {
                   const resultItem = document.createElement('li');
