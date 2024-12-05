@@ -35,15 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
           });
 
           if (!response.ok) {
-              const errorText = await response.text(); // Read error message as text
-              try {
-                  const errorData = JSON.parse(errorText); // Try parsing as JSON
-                  alert(`Error: ${errorData.error}`);
-              } catch {
-                  alert(`Error: ${errorText || 'Unknown error occurred.'}`);
-              }
-              return;
-          }
+            const errorData = await response.json();
+            console.error('Backend error:', errorData);
+            alert(`Error: ${errorData.error || 'Unknown error occurred.'}`);
+            return;
+        }
 
           /* const responseText = await response.text(); // Read as plain text first
           if (!responseText.trim()) {
@@ -52,7 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
           }
           const data = JSON.parse(responseText); // Parse JSON after checking for content
           */
+
           const data = await response.json(); 
+          console.log('Response data:', data)
           resultsContainer.innerHTML = ''; // Clear previous results
 
           if (Object.keys(data).length > 0) {
