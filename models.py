@@ -86,7 +86,7 @@ class KenallDriver(db.Model):
 class KenallLamp(db.Model):
     __tablename__ = 'kenall_lamp'
     id = db.Column(db.Integer, primary_key=True)
-    diffuser = db.Column(db.String, nullable=False)
+    lamp = db.Column(db.String, nullable=False)
     amico_id = db.Column(db.Integer, db.ForeignKey('amico_function.id'), nullable=False)
     amico_id_CCT = db.Column(db.Integer, db.ForeignKey('amico_CCT.id'), nullable=False)
 
