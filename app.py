@@ -165,6 +165,8 @@ with app.app_context():
         results['amicoOptions'] = get_amico_options(options)
         results['amicoAccessories'] = get_amico_accessories(accessories)
     
+        print(f"Received Data: {data}")
+        print(f"Search Results: {results}")
         return jsonify(results), 200
 
     except Exception as e:
