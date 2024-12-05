@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
           });
 
           if (!response.ok) {
-              // Handle non-200 responses
               const errorText = await response.text(); // Read error message as text
               try {
                   const errorData = JSON.parse(errorText); // Try parsing as JSON
@@ -46,13 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
               return;
           }
 
-          const responseText = await response.text(); // Read as plain text first
+          /* const responseText = await response.text(); // Read as plain text first
           if (!responseText.trim()) {
               alert('Error: Empty response from the server.');
               return;
           }
-
           const data = JSON.parse(responseText); // Parse JSON after checking for content
+          */
+          const data = await response.json(); 
           resultsContainer.innerHTML = ''; // Clear previous results
 
           if (Object.keys(data).length > 0) {
