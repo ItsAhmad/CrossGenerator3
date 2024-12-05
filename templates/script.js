@@ -90,13 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
               return;
           }
   
-          /* const responseText = await response.text(); // Read as plain text first
-          if (responseText.trim() === '') {
-              alert('Error: Empty response from the server.');
-              return;
-          }*/
-  
-          /* const data = JSON.parse(responseText); // Parse JSON only if non-empty */
+          const data = await response.json(); // Read as plain text first
           resultsContainer.innerHTML = ''; // Clear previous results
   
           if (Object.keys(data).length > 0) {
