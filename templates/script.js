@@ -70,7 +70,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ model }),
+                body: JSON.stringify({ 
+                  model,
+                  mounting,
+                  diffuser,
+                  lamp,
+                  driver,
+                  voltage,
+                  doorframe,
+                  options,
+                  accessories
+                }),
             });
 
             if (response.ok) {
