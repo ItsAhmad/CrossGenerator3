@@ -37,7 +37,7 @@ with app.app_context():
     accessories = data.get('accessories')
 
     # Validate required fields
-    required_fields = [model]
+    required_fields = [model, mounting, diffuser, lamp, driver, voltage, doorframe, options, accessories]
     if not all(required_fields):
         return jsonify({"error": "All required fields must be provided."}), 400
 
