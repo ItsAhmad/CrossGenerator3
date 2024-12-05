@@ -83,9 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }),
             });
 
-            console.log("Response status:", response.status);
-            console.log("Response body (raw):", await response.text());
-
             if (!response.ok) {
               // Handle non-200 responses
               const errorData = await response.json();
@@ -93,11 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
               return;
           }
   
-          const responseText = await response.text(); // Read as plain text first
+          /* const responseText = await response.text(); // Read as plain text first
           if (responseText.trim() === '') {
               alert('Error: Empty response from the server.');
               return;
-          }
+          }*/
   
           const data = JSON.parse(responseText); // Parse JSON only if non-empty
           resultsContainer.innerHTML = ''; // Clear previous results
