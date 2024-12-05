@@ -16,50 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const options = document.getElementById('options').value;
         const accessories = document.getElementById('accessories').value;
 
-
-        if (!model) {
-            alert('Please provide the model part number.');
-            return;
-        }
-        
-        if (!mounting) {
-            alert('Please provide the mounting part number.');
-            return;
-        }
-        
-        if (!diffuser) {
-            alert('Please provide the diffuser part number.');
-            return;
-        }
-        
-        if (!lamp) {
-            alert('Please provide the lamp part number.');
-            return;
-        }
-        
-        if (!driver) {
-            alert('Please provide the driver part number.');
-            return;
-        }
-        
-        if (!voltage) {
-            alert('Please provide the voltage part number.');
-            return;
-        }
-        
-        if (!doorframe) {
-            alert('Please provide the doorframe part number.');
-            return;
-        }
-        
-        if (!options) {
-            alert('Please provide the options part number.');
-            return;
-        }
-
-        if (!accessories) {
-            alert('Please provide the accessories part number.');
-            return;
+        const requiredFields = { model, mounting, diffuser, lamp, driver, voltage, doorframe, options, accessories };
+        for (const [field, value] of Object.entries(requiredFields)) {
+            if (!value) {
+                alert(`Please provide the ${field} part number.`);
+                return;
+            }
         }
         
 
