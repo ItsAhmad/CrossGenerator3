@@ -83,6 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }),
             });
 
+            console.log("Response status:", response.status);
+            console.log("Response body (raw):", await response.text());
+
             if (response.ok) {
                 const data = await response.json();
                 resultsContainer.innerHTML = ''; // Clear previous results
