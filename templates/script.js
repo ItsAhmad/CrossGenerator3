@@ -86,25 +86,35 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Response status:", response.status);
             console.log("Response body (raw):", await response.text());
 
-            if (response.ok) {
-                const data = await response.json();
-                resultsContainer.innerHTML = ''; // Clear previous results
-
-                // Display the equivalent part number
-                if (data.amicoPartNumber) {
-                    const resultItem = document.createElement('li');
-                    resultItem.textContent = `Equivalent Amico Part Number: ${data.amicoPartNumber}`;
-                    resultsContainer.appendChild(resultItem);
-                } else {
-                    resultsContainer.textContent = 'No equivalent part found.';
-                }
-            } else {
-                alert('Error: Could not retrieve part information.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred while searching for the part.');
-        }
+            if (!response.ok) {
+              // Handle non-200 responses
+              const errorData = await response.json();
+              alert(`Error: ${errorData.error}`);
+              return;
+          }
+  
+          const responseText = await response.text(); // Read as plain text first
+          if (responseText.trim() === '') {
+              alert('Error: Empty response from the server.');
+              return;
+          }
+  
+          const data = JSON.parse(responseText); // Parse JSON only if non-empty
+          resultsContainer.innerHTML = ''; // Clear previous results
+  
+          if (Object.keys(data).length > 0) {
+              for (const [key, value] of Object.entries(data)) {
+                  const resultItem = document.createElement('li');
+                  resultItem.textContent = `${key}: ${value || 'No equivalent found'}`;
+                  resultsContainer.appendChild(resultItem);
+              }
+          } else {
+              resultsContainer.textContent = 'No equivalent part found.';
+          }
+      } catch (error) {
+          console.error('Error:', error);
+          alert('An error occurred while searching for the part.');
+      }
     });
 });
 
