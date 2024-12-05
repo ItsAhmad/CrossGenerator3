@@ -42,90 +42,51 @@ def search_part():
         # Search for equivalents in the database
         results = {}
 
-        # Search Model
-        if model:
-            kenall_model = KenallModel.query.filter_by(model=model).first()
-            results['amicoModel'] = kenall_model.amico_id if kenall_model else None
+        def get_equivalent(kenall_query, amico_model, attr):
+            kenall_part = kenall_query.first()
+            if kenall_part and getattr(kenall_part, "amico_id", None):
+                amico_part = amico_model.query.get(kenall_part.amico_id)
+                return getattr(amico_part, attr, None) if amico_part else None
+            return None
 
-        # Search Mounting
-        if mounting:
-            kenall_mounting = KenallMounting.query.filter_by(mounting=mounting).first()
-            results['amicoMounting'] = (
-                AmicoMounting.query.get(kenall_mounting.amico_id).mounting
-                if kenall_mounting and kenall_mounting.amico_id
-                else None
-            )
-
-        # Search Diffuser
-        if diffuser:
-            kenall_diffuser = KenallDiffuser.query.filter_by(diffuser=diffuser).first()
-            results['amicoDiffuser'] = (
-                AmicoDiffuser.query.get(kenall_diffuser.amico_id).diffuser
-                if kenall_diffuser and kenall_diffuser.amico_id
-                else None
-            )
-
-        # Search Lamp
-        if lamp:
-            kenall_lamp = KenallLamp.query.filter_by(diffuser=lamp).first()
-            results['amicoLamp'] = (
-                AmicoFunction.query.get(kenall_lamp.amico_id).function
-                if kenall_lamp and kenall_lamp.amico_id
-                else None
-            )
-
-        # Search Driver
-        if driver:
-            kenall_driver = KenallDriver.query.filter_by(driver=driver).first()
-            results['amicoDriver'] = (
-                AmicoDriver.query.get(kenall_driver.amico_id).driver
-                if kenall_driver and kenall_driver.amico_id
-                else None
-            )
-
-        # Search Voltage
-        if voltage:
-            kenall_voltage = KenallVoltage.query.filter_by(voltage=voltage).first()
-            results['amicoVoltage'] = (
-                AmicoVoltage.query.get(kenall_voltage.amico_id).voltage
-                if kenall_voltage and kenall_voltage.amico_id
-                else None
-            )
-
-        # Search Doorframe
-        if doorframe:
-            kenall_doorframe = KenallDoorframe.query.filter_by(doorframe=doorframe).first()
-            results['amicoDoorframe'] = (
-                AmicoDoorframe.query.get(kenall_doorframe.amico_id).doorframe
-                if kenall_doorframe and kenall_doorframe.amico_id
-                else None
-            )
-
-        # Search Options
-        if options:
-            kenall_options = KenallOptions.query.filter_by(options=options).first()
-            results['amicoOptions'] = (
-                AmicoOptions.query.get(kenall_options.amico_id).options
-                if kenall_options and kenall_options.amico_id
-                else None
-            )
-
-        # Search Accessories
-        if accessories:
-            kenall_accessories = KenallAccessories.query.filter_by(accessories=accessories).first()
-            results['amicoAccessories'] = (
-                AmicoAccessories.query.get(kenall_accessories.amico_id).options
-                if kenall_accessories and kenall_accessories.amico_id
-                else None
-            )
+        # Search each field
+        results['amicoModel'] = get_equivalent(
+            KenallModel.query.filter_by(model=model), AmicoModel, 'model'
+        )
+        results['amicoMounting'] = get_equivalent(
+            KenallMounting.query.filter_by(mounting=mounting), AmicoMounting, 'mounting'
+        )
+        results['amicoDiffuser'] = get_equivalent(
+            KenallDiffuser.query.filter_by(diffuser=diffuser), AmicoDiffuser, 'diffuser'
+        )
+        results['amicoLamp'] = get_equivalent(
+            KenallLamp.query.filter_by(lamp=lamp), AmicoFunction, 'function'
+        )
+        results['amicoDriver'] = get_equivalent(
+            KenallDriver.query.filter_by(driver=driver), AmicoDriver, 'driver'
+        )
+        results['amicoVoltage'] = get_equivalent(
+            KenallVoltage.query.filter_by(voltage=voltage), AmicoVoltage, 'voltage'
+        )
+        results['amicoDoorframe'] = get_equivalent(
+            KenallDoorframe.query.filter_by(doorframe=doorframe), AmicoDoorframe, 'doorframe'
+        )
+        results['amicoOptions'] = get_equivalent(
+            KenallOptions.query.filter_by(options=options), AmicoOptions, 'options'
+        )
+        results['amicoAccessories'] = get_equivalent(
+            KenallAccessories.query.filter_by(accessories=accessories), AmicoAccessories, 'options'
+        )
 
         # Return results
+        if not any(results.values()):  # Check if all results are empty
+            return jsonify({"error": "No matching records found."}), 404
+
         return jsonify(results), 200
 
     except Exception as e:
-        print(f"Error: {e}")
-        return jsonify({"error": "An error occurred while processing the request."}), 500
-
+        print(f"Error processing request: {e}")
+        return jsonify({"error": "Internal server error occurred."}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
