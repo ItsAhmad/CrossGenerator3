@@ -40,9 +40,9 @@ def search_part():
   options = data.get('options')
   accessories = data.get('accessories')
 
-  required_fields = [model, mounting, diffuser, lamp, driver, voltage, doorframe, options, accessories]
-  if not all(required_fields):
-     return jsonify({"error": "All required fields must be provided."}), 400
+  #required_fields = [model, mounting, diffuser, lamp, driver, voltage, doorframe, options, accessories]
+  #if not all(required_fields):
+     #return jsonify({"error": "All required fields must be provided."}), 400
 
   try:
         # create JSON response to log answers
