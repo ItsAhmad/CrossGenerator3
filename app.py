@@ -1,4 +1,5 @@
 import os
+from flask_cors import CORS
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -12,6 +13,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
     "postgresql://amico_cross_db_user:cgY8HXuK313UxBOnacSOKfDccWl9pGYl@dpg-ct49jhlumphs73e4l150-a.oregon-postgres.render.com/amico_cross_db"
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+CORS(app)
 
 db.init_app(app)
 with app.app_context():

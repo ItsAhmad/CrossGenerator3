@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
               body: JSON.stringify(requiredFields),
           });
 
+          console.log('Response status:', response.status);
+          console.log('Response headers:', Array.from(response.headers.entries()));
+
           if (!response.ok) {
             const errorData = await response.json();
             console.error('Backend error:', errorData);
