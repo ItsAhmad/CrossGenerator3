@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
               data['Amico CCT'],
               'A',
               data['Amico Mounting'], 
-              data['Amico Switch'],
-              data['Amico Options']
+              data['Amico Switch'] || '000', 
+              data['Amico Options'] || '00'
             ].join('-');
 
             const resultItem = document.createElement('li');
