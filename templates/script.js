@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const requestData = { 
           ...requiredFields, 
-          options: options || '',  
-          accessories: accessories || ''  
+          options: options || '000',  
+          accessories: accessories || '00'  
       };
 
         try {
