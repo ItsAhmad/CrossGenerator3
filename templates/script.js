@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const formattedResult = [
               'L',
               data.model,
-              data.Voltage,
-              data.Function,
+              data.voltage,
+              data.function,
               data.CCT,
               'A',
               data.mounting, 
