@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const options = document.getElementById('options').value;
         const accessories = document.getElementById('accessories').value;
 
-        const requiredFields = { model, mounting, diffuser, lamp, driver, voltage, doorframe, options, accessories };
+        const requiredFields = { model, mounting, diffuser, lamp, driver, voltage, doorframe };
         for (const [field, value] of Object.entries(requiredFields)) {
             if (!value) {
                 alert(`Please provide the ${field} part number.`);
@@ -24,9 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        const requestData = { 
+          requiredFields, 
+          options: options || '',  
+          accessories: accessories || ''  
+      };
+
         try {
           // use Axios for json requests
-          const response = await axios.post('https://crossgeneratordynamic.onrender.com/api/search-part', requiredFields);
+          const response = await axios.post('https://crossgeneratordynamic.onrender.com/api/search-part', requestData);
           console.log('Response data:', response.data);
 
           resultsContainer.innerHTML = ''; 
