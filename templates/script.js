@@ -47,9 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
             ].join('-');
 
             const resultItem = document.createElement('li');
-            resultItem.textContext = formattedResult;
-
+            resultItem.textContent = formattedResult;
+            
             resultsContainer.appendChild(resultItem);
+
           } else {
             const resultItem = document.createElement('li');
             resultItem.textContent = 'No Equivalent Found'; 
