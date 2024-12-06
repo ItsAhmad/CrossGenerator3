@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           resultsContainer.innerHTML = ''; 
 
-          if (Object.jeys(response.data).length > 0) {
+          if (Object.keys(response.data).length > 0) {
             const data = response.data;
 
             const formattedResult = [
