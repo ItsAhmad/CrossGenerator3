@@ -36,14 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const formattedResult = [
               'L',
-              data.model,
-              data.voltage,
-              data.function,
-              data.CCT,
+              data['Amico Model'],
+              data['Amico Voltage'],
+              data['Amico Function'],
+              data['Amico CCT'],
               'A',
-              data.mounting, 
-              data.switch,
-              data.options
+              data['Amico Mounting'], 
+              data['Amico Switch'],
+              data['Amico Options']
             ].join('-');
 
             const resultItem = document.createElement('li');
