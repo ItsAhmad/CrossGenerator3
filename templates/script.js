@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsContainer = document.getElementById('results');
 
     form.addEventListener('submit', async (event) => {
-        event.preventDefault(); // Prevent default form submission
+        event.preventDefault(); 
 
         // Collect input data
         const model = document.getElementById('model').value;
@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-          // Axios POST request
+          // use Axios for json requests
           const response = await axios.post('https://crossgeneratordynamic.onrender.com/api/search-part', requiredFields);
           console.log('Response data:', response.data);
 
-          resultsContainer.innerHTML = ''; // Clear previous results
+          resultsContainer.innerHTML = ''; 
 
           if (Object.keys(response.data).length > 0) {
               for (const [key, value] of Object.entries(response.data)) {
@@ -43,18 +43,39 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (error) {
           console.error('Error:', error);
           if (error.response) {
-              // The request was made, and the server responded with a status code outside 2xx
+              // If server responds with error code
               alert(`Error: ${error.response.data.error || 'Unknown error occurred.'}`);
           } else if (error.request) {
-              // The request was made but no response received
+              // If request was sent, but server sends blank response 
               alert('Error: No response from the server.');
           } else {
-              // Something else caused the error
+              // Isusé Boze buddy it's chopped 
               alert(`Error: ${error.message}`);
           }
       }  
 });
 }); 
+
+
+/* 
+
+L-SEC22-120-E200-L30-A-F-N/A-N/A
+Accessories: N/A
+Diffuser: N/A
+Doorframe: N/A
+Driver: 0-10V
+Function: E200
+Model: SEC22
+Mounting: F
+Options: N/A
+Voltage: 120-277
+
+L-SEC22-120-E200-L30-A-F-000-00
+
+Add warning: This website is under testing. Please only use this tool as a reference. Consult Amico Cut Sheet to ensure accuracy. 
+
+Add Copyright at bottom 
+*/ 
 
   
 /* try {

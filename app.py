@@ -11,6 +11,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
     "DATABASE_URL",
     "postgresql://amico_cross_db_user:cgY8HXuK313UxBOnacSOKfDccWl9pGYl@dpg-ct49jhlumphs73e4l150-a/amico_cross_db"
+    #"postgresql://amico_cross_db_user:cgY8HXuK313UxBOnacSOKfDccWl9pGYl@dpg-ct49jhlumphs73e4l150-a.oregon-postgres.render.com/amico_cross_db"
+    #use secondary URL for testing ONLY
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -23,11 +25,11 @@ migrate = Migrate(app, db, compare_type=True)
 
 @app.route('/api/search-part', methods=['POST'])
 def search_part():
-  data = request.json  # Receive JSON data
+  data = request.json  
   if not data:
     return jsonify({"error": "Invalid or missing input data."}), 400
 
-    # Extract input values
+    # required to receive input values 
   model = data.get('model')
   mounting = data.get('mounting')
   diffuser = data.get('diffuser')
@@ -38,13 +40,12 @@ def search_part():
   options = data.get('options')
   accessories = data.get('accessories')
 
-    # Validate required fields
   required_fields = [model, mounting, diffuser, lamp, driver, voltage, doorframe, options, accessories]
   if not all(required_fields):
      return jsonify({"error": "All required fields must be provided."}), 400
 
   try:
-        # Search for equivalents in the database
+        # create JSON response to log answers
         results = {}
 
         print("Recieved JSON Data:", request.json)
@@ -157,17 +158,45 @@ def search_part():
                     return amico_part.options
                  else:
                     print("nothing found")
+        
+        def get_amico_CCT(CCT):
+           kenall_query = KenallLamp.query.filter_by(lamp=CCT)
+           kenall_parts = kenall_query.all()
+           if kenall_parts: 
+              for kenall_part in kenall_parts:
+                 amico_id_CCT = kenall_part.amico_id_CCT
+                 amico_part = AmicoCCT.query.get(amico_id_CCT)
+                 if amico_part:
+                    return amico_part.CCT
+                 else:
+                    print("nothing found ")
+        
+        def get_amico_switch(switch):
+           kenall_query = KenallOptions.query.filter_by(options=switch)
+           kenall_parts = kenall_query.all()
+           if kenall_parts:
+              for kenall_part in kenall_parts:
+                 amico_id_switch = kenall_part.amico_id_switch
+                 amico_part = AmicoSwitch.query.get(amico_id_switch)
+                 if amico_part:
+                    return amico_part.switch
+                 else: 
+                    print("nothing found")
+
+        
 
     
-        results['amicoModel'] = get_amico_model(model)
-        results['amicoMounting'] = get_amico_mounting(mounting)
-        results['amicoDiffuser'] = get_amico_diffuser(diffuser)
-        results['amicoFunction'] = get_amico_lamp(lamp)
-        results['amicoDriver'] = get_amico_driver(driver)
-        results['amicoVoltage'] = get_amico_voltage(voltage)
-        results['amicoDoorframe'] = get_amico_doorframe(doorframe)
-        results['amicoOptions'] = get_amico_options(options)
-        results['amicoAccessories'] = get_amico_accessories(accessories)
+        results['Amico Model'] = get_amico_model(model)
+        results['Amico Mounting'] = get_amico_mounting(mounting)
+        results['Amico Diffuser'] = get_amico_diffuser(diffuser)
+        results['Amico Function'] = get_amico_lamp(lamp)
+        results['Amico Driver'] = get_amico_driver(driver)
+        results['Amico Voltage'] = get_amico_voltage(voltage)
+        results['Amico Doorframe'] = get_amico_doorframe(doorframe)
+        results['Amico Options'] = get_amico_options(options)
+        results['Amico Accessories'] = get_amico_accessories(accessories)
+        results['Amico CCT'] = get_amico_CCT(lamp)
+        results['Amico Switch'] = get_amico_switch(options)
 
         return jsonify(results), 200
 
