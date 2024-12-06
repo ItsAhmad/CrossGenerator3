@@ -21,32 +21,33 @@ with app.app_context():
     db.create_all()
 migrate = Migrate(app, db, compare_type=True)
 
-with app.app_context():
-  @app.route('/api/search-part', methods=['POST'])
-  def search_part():
-    data = request.json  # Receive JSON data
-    if not data:
-        return jsonify({"error": "Invalid or missing input data."}), 400
+@app.route('/api/search-part', methods=['POST'])
+def search_part():
+  data = request.json  # Receive JSON data
+  if not data:
+    return jsonify({"error": "Invalid or missing input data."}), 400
 
     # Extract input values
-    model = data.get('model')
-    mounting = data.get('mounting')
-    diffuser = data.get('diffuser')
-    lamp = data.get('lamp')
-    driver = data.get('driver')
-    voltage = data.get('voltage')
-    doorframe = data.get('doorframe')
-    options = data.get('options')
-    accessories = data.get('accessories')
+  model = data.get('model')
+  mounting = data.get('mounting')
+  diffuser = data.get('diffuser')
+  lamp = data.get('lamp')
+  driver = data.get('driver')
+  voltage = data.get('voltage')
+  doorframe = data.get('doorframe')
+  options = data.get('options')
+  accessories = data.get('accessories')
 
     # Validate required fields
-    required_fields = [model, mounting, diffuser, lamp, driver, voltage, doorframe, options, accessories]
-    if not all(required_fields):
-        return jsonify({"error": "All required fields must be provided."}), 400
+  required_fields = [model, mounting, diffuser, lamp, driver, voltage, doorframe, options, accessories]
+  if not all(required_fields):
+     return jsonify({"error": "All required fields must be provided."}), 400
 
-    try:
+  try:
         # Search for equivalents in the database
         results = {}
+
+        print("Recieved JSON Data:", request.json)
 
         def get_amico_model(model):
           kenall_query = KenallModel.query.filter_by(model=model)
@@ -167,12 +168,13 @@ with app.app_context():
         results['amicoDoorframe'] = get_amico_doorframe(doorframe)
         results['amicoOptions'] = get_amico_options(options)
         results['amicoAccessories'] = get_amico_accessories(accessories)
-    
+
+        print("Generated Results:", results)
         return jsonify(results), 200
 
-    except Exception as e:
-        print(f"Error processing request: {e}")
-        return jsonify({"error": "Internal server error occurred."}), 500
+  except Exception as e:
+    print(f"Error processing request: {e}")
+    return jsonify({"error": "Internal server error occurred."}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
