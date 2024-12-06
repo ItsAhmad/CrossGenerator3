@@ -29,3 +29,20 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+#results {
+  border: 2px solid #ccc; 
+  padding: 15px;          
+  margin-top: 20px;       
+  background-color: #f9f9f9; 
+  border-radius: 8px;     
+  max-width: 600px;       
+  margin-left: auto;      
+  margin-right: auto;     
+  list-style: none;       
+  padding-left: 0;       
+}
+
+#results li {
+  margin-bottom: 10px;   
+}
+
