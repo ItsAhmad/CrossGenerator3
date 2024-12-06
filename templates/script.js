@@ -49,12 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
           const data = JSON.parse(responseText); // Parse JSON after checking for content
           */
 
-          const data = await response.json(); 
-          console.log('Response data:', data)
+          const results = await response.json(); 
+          console.log('Response data:', results)
           resultsContainer.innerHTML = ''; // Clear previous results
 
-          if (Object.keys(data).length > 0) {
-              for (const [key, value] of Object.entries(data)) {
+          if (Object.keys(results).length > 0) {
+              for (const [key, value] of Object.entries(results)) {
                   const resultItem = document.createElement('li');
                   resultItem.textContent = `${key}: ${value || 'No equivalent found'}`;
                   resultsContainer.appendChild(resultItem);
