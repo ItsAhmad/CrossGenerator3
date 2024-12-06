@@ -31,15 +31,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
           resultsContainer.innerHTML = ''; 
 
-          if (Object.keys(response.data).length > 0) {
-              for (const [key, value] of Object.entries(response.data)) {
-                  const resultItem = document.createElement('li');
-                  resultItem.textContent = `${key}: ${value || 'No equivalent found'}`;
-                  resultsContainer.appendChild(resultItem);
-              }
+          if (Object.jeys(response.data).length > 0) {
+            const data = response.data;
+
+            const formattedResult = [
+              'L',
+              data.model,
+              data.Voltage,
+              data.Function,
+              data.CCT,
+              'A',
+              data.mounting, 
+              data.switch,
+              data.options
+            ].join('-');
+
+            const resultItem = document.createElement('li');
+            resultItem.textContext = formattedResult;
+
+            resultsContainer.appendChild(resultItem);
           } else {
-              resultsContainer.textContent = 'No equivalent part found.';
+            const resultItem = document.createElement('li');
+            resultItem.textContent = 'No Equivalent Found'; 
+            resultsContainer.appendChild(resultItem);
           }
+
       } catch (error) {
           console.error('Error:', error);
           if (error.response) {
@@ -59,22 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* 
 
-L-SEC22-120-E200-L30-A-F-N/A-N/A
-Accessories: N/A
-Diffuser: N/A
-Doorframe: N/A
-Driver: 0-10V
-Function: E200
-Model: SEC22
-Mounting: F
-Options: N/A
-Voltage: 120-277
-
 L-SEC22-120-E200-L30-A-F-000-00
 
-Add warning: This website is under testing. Please only use this tool as a reference. Consult Amico Cut Sheet to ensure accuracy. 
-
-Add Copyright at bottom 
 */ 
 
   
