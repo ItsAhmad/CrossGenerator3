@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
           // Axios POST request
-          const response = await axios.post('/api/search-part', requiredFields);
+          const response = await axios.get('/api/search-part', requiredFields);
           console.log('Response data:', response.data);
 
           resultsContainer.innerHTML = ''; // Clear previous results
@@ -102,5 +102,4 @@ document.addEventListener('DOMContentLoaded', () => {
   alert('An error occurred while searching for the part.');
 }
 });
-
 */ 
