@@ -21,7 +21,7 @@ with app.app_context():
     db.create_all()
 migrate = Migrate(app, db, compare_type=True)
 
-@app.route('/api/search-part', methods=['GET'])
+@app.route('/api/search-part', methods=['POST'])
 def search_part():
   data = request.json  # Receive JSON data
   if not data:
