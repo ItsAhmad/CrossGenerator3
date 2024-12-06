@@ -169,7 +169,6 @@ def search_part():
         results['amicoOptions'] = get_amico_options(options)
         results['amicoAccessories'] = get_amico_accessories(accessories)
 
-        print("Generated Results:", results)
         return jsonify(results), 200
 
   except Exception as e:
